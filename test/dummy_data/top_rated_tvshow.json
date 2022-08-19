@@ -1,0 +1,27 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "backdrop_path": null,
+      "first_air_date": "2004-05-10",
+      "genre_ids": [
+        16,
+        35
+      ],
+      "id": 100,
+      "name": "I Am Not an Animal",
+      "origin_country": [
+        "GB"
+      ],
+      "original_language": "en",
+      "original_name": "I Am Not an Animal",
+      "overview": "I Am Not An Animal is an animated comedy series about the only six talking animals in the world, whose cosseted existence in a vivisection unit is turned upside down when they are liberated by animal rights activists.",
+      "popularity": 14.333,
+      "poster_path": "/qG59J1Q7rpBc1dvku4azbzcqo8h.jpg",
+      "vote_average": 9.1,
+      "vote_count": 719
+    }
+  ],
+  "total_pages": 126,
+  "total_results": 2514
+}

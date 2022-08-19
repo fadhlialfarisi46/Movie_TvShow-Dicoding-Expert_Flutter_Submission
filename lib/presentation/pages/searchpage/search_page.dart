@@ -5,8 +5,6 @@ import 'package:ditonton/presentation/widgets/movie_card_list.dart';
 import 'package:ditonton/presentation/widgets/tvshow_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'dart:developer';
-
 
 class SearchPage extends StatelessWidget {
   static const ROUTE_NAME = '/search';
@@ -78,14 +76,17 @@ class SearchPage extends StatelessWidget {
                       ),
                     );
                   }
-                } else if(data.state == RequestState.Empty || data.state == RequestState.Error) {
+                } else if (data.state == RequestState.Empty ||
+                    data.state == RequestState.Error) {
                   return Expanded(
                     child: Center(
-                      child: Text(data.message, style: kHeading6,),
+                      child: Text(
+                        data.message,
+                        style: kHeading6,
+                      ),
                     ),
                   );
-                }
-                else {
+                } else {
                   return Expanded(child: Container());
                 }
               },

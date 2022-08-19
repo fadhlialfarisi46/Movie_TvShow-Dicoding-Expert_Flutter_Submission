@@ -2,16 +2,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/movie.dart';
-import 'package:ditonton/presentation/pages/about_page.dart';
-import 'package:ditonton/presentation/pages/movie_detail_page.dart';
-import 'package:ditonton/presentation/pages/popular_movies_page.dart';
-import 'package:ditonton/presentation/pages/search_page.dart';
-import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
-import 'package:ditonton/presentation/pages/tvshow_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
+import 'package:ditonton/presentation/pages/aboutpage/about_page.dart';
+import 'package:ditonton/presentation/pages/moviepages/movie_detail_page.dart';
+import 'package:ditonton/presentation/pages/moviepages/popular_movies_page.dart';
+import 'package:ditonton/presentation/pages/moviepages/top_rated_movies_page.dart';
+import 'package:ditonton/presentation/pages/moviepages/watchlist_movies_page.dart';
+import 'package:ditonton/presentation/pages/searchpage/search_page.dart';
+import 'package:ditonton/presentation/pages/tvshowpages/tvshow_page.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../tvshowpages/watchlist_tvshows_page.dart';
 
 class HomeMoviePage extends StatefulWidget {
   @override
@@ -38,7 +40,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, SearchPage.ROUTE_NAME);
+              Navigator.pushNamed(context, SearchPage.ROUTE_NAME, arguments: 0);
             },
             icon: Icon(Icons.search),
           )
@@ -171,7 +173,7 @@ class MovieList extends StatelessWidget {
   }
 }
 
-class NavigationDrawer extends StatelessWidget{
+class NavigationDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -200,16 +202,23 @@ class NavigationDrawer extends StatelessWidget{
           ),
           ListTile(
             leading: Icon(Icons.save_alt),
-            title: Text('Watchlist'),
+            title: Text('Watchlist Movie'),
             onTap: () {
               selectedItem(context, 2);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.save_alt),
+            title: Text('Watchlist TvShow'),
+            onTap: () {
+              selectedItem(context, 3);
             },
           ),
           ListTile(
             leading: Icon(Icons.info_outline),
             title: Text('About'),
             onTap: () {
-              selectedItem(context, 3);
+              selectedItem(context, 4);
             },
           ),
         ],
@@ -218,7 +227,7 @@ class NavigationDrawer extends StatelessWidget{
   }
 
   void selectedItem(BuildContext context, int index) {
-    if(index != 0){
+    if (index != 0) {
       Navigator.of(context).pop();
     }
 
@@ -233,9 +242,11 @@ class NavigationDrawer extends StatelessWidget{
         Navigator.pushNamed(context, WatchlistMoviesPage.ROUTE_NAME);
         break;
       case 3:
+        Navigator.pushNamed(context, WatchlistTvShowsPage.ROUTE_NAME);
+        break;
+      case 4:
         Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
         break;
     }
   }
 }
-

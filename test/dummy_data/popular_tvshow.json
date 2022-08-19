@@ -1,0 +1,27 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "backdrop_path": "/6KyJeOW7vTW0czdR0S6wzXAcfmw.jpg",
+      "first_air_date": "2022-08-05",
+      "genre_ids": [
+        10765,
+        18
+      ],
+      "id": 90802,
+      "name": "The Sandman",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_name": "The Sandman",
+      "overview": "overview",
+      "popularity": 2569.454,
+      "poster_path": "/q54qEgagGOYCq5D1903eBVMNkbo.jpg",
+      "vote_average": 8.2,
+      "vote_count": 297
+    }
+  ],
+  "total_pages": 6762,
+  "total_results": 135237
+}

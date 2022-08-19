@@ -1,0 +1,75 @@
+{
+  "adult": false,
+  "backdrop_path": "backdrop_path",
+  "created_by": [],
+  "episode_run_time": [
+    30
+  ],
+  "first_air_date": "2004-05-10",
+  "genres": [
+    {
+      "id": 16,
+      "name": "Animation"
+    },
+    {
+      "id": 35,
+      "name": "Comedy"
+    }
+  ],
+  "id": 100,
+  "languages": [
+    "en"
+  ],
+  "last_air_date": "2004-10-19",
+  "last_episode_to_air": {
+    "air_date": "2004-10-19",
+    "episode_number": 3,
+    "id": 4694,
+    "name": "Money",
+    "overview": "The animals begin to have problems with money.",
+    "production_code": "",
+    "runtime": 30,
+    "season_number": 1,
+    "show_id": 100,
+    "still_path": "backdrop_path",
+    "vote_average": 0,
+    "vote_count": 0
+  },
+  "name": "I Am Not an Animal",
+  "next_episode_to_air": "next_episode_to_air",
+  "number_of_episodes": 6,
+  "number_of_seasons": 1,
+  "origin_country": [
+    "GB"
+  ],
+  "original_language": "en",
+  "original_name": "I Am Not an Animal",
+  "overview": "I Am Not An Animal is an animated comedy series about the only six talking animals in the world, whose cosseted existence in a vivisection unit is turned upside down when they are liberated by animal rights activists.",
+  "popularity": 14.333,
+  "poster_path": "/qG59J1Q7rpBc1dvku4azbzcqo8h.jpg",
+  "seasons": [
+    {
+      "air_date": null,
+      "episode_count": 1,
+      "id": 299,
+      "name": "Specials",
+      "overview": "",
+      "poster_path": null,
+      "season_number": 0
+    },
+    {
+      "air_date": "2004-05-10",
+      "episode_count": 6,
+      "id": 298,
+      "name": "Season 1",
+      "overview": "",
+      "poster_path": null,
+      "season_number": 1
+    }
+  ],
+  "status": "Ended",
+  "tagline": "",
+  "type": "Scripted",
+  "vote_average": 9.137,
+  "vote_count": 719
+}
