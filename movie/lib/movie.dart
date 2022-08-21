@@ -1,0 +1,22 @@
+library movie;
+
+export 'domain/usecase/get_movie_detail.dart';
+export 'domain/usecase/get_movie_recommendations.dart';
+export 'domain/usecase/get_now_playing_movies.dart';
+export 'domain/usecase/get_popular_movies.dart';
+export 'domain/usecase/get_top_rated_movies.dart';
+export 'domain/usecase/get_watchlist_movies.dart';
+export 'domain/usecase/get_watchlist_status.dart';
+export 'domain/usecase/remove_watchlist.dart';
+export 'domain/usecase/save_watchlist.dart';
+export 'presentation/pages/moviepages/home_movie_page.dart';
+export 'presentation/pages/moviepages/movie_detail_page.dart';
+export 'presentation/pages/moviepages/popular_movies_page.dart';
+export 'presentation/pages/moviepages/top_rated_movies_page.dart';
+export 'presentation/pages/moviepages/watchlist_movies_page.dart';
+export 'presentation/provider/movie_detail_notifier.dart';
+export 'presentation/provider/movie_list_notifier.dart';
+export 'presentation/provider/popular_movies_notifier.dart';
+export 'presentation/provider/top_rated_movies_notifier.dart';
+export 'presentation/provider/watchlist_movie_notifier.dart';
+export 'presentation/widgets/movie_card_list.dart';
