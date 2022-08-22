@@ -1,10 +1,8 @@
-import 'package:core/utils/state_enum.dart';
+import 'package:core/styles/styles.dart';
 import 'package:core/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../../provider/watchlist_movie_notifier.dart';
-import '../../widgets/movie_card_list.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie/movie.dart';
 
 class WatchlistMoviesPage extends StatefulWidget {
   const WatchlistMoviesPage({Key? key}) : super(key: key);
@@ -18,9 +16,10 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<WatchlistMovieNotifier>(context, listen: false)
-            .fetchWatchlistMovies());
+    Future.microtask(
+      () => BlocProvider.of<WatchlistMovieBloc>(context, listen: false)
+          .add(WatchlistMovieEvent()),
+    );
   }
 
   @override
@@ -31,8 +30,8 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
 
   @override
   void didPopNext() {
-    Provider.of<WatchlistMovieNotifier>(context, listen: false)
-        .fetchWatchlistMovies();
+    BlocProvider.of<WatchlistMovieBloc>(context, listen: false)
+        .add(WatchlistMovieEvent());
   }
 
   @override
@@ -43,27 +42,38 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<WatchlistMovieNotifier>(
-          builder: (context, data, child) {
-            if (data.watchlistState == RequestState.Loading) {
+        child: BlocBuilder<WatchlistMovieBloc, WatchlistMovieState>(
+          builder: (_, state) {
+            if (state is WatchlistMovieLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.watchlistState == RequestState.Loaded) {
+            } else if (state is WatchlistMovieHasData) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final movie = data.watchlistMovies[index];
+                  final movie = state.watchlistResult[index];
                   return MovieCard(
                     movie: movie,
                   );
                 },
-                itemCount: data.watchlistMovies.length,
+                itemCount: state.watchlistResult.length,
+              );
+            } else if (state is WatchlistMovieEmpty) {
+              return Center(
+                child: Text(
+                  state.message,
+                  style: kHeading6,
+                ),
+              );
+            } else if (state is WatchlistMovieError) {
+              return Center(
+                child: Text(
+                  state.message,
+                  style: kHeading6,
+                ),
               );
             } else {
-              return Center(
-                key: const Key('error_message'),
-                child: Text(data.message),
-              );
+              return const Center();
             }
           },
         ),

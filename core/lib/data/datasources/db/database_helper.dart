@@ -6,6 +6,7 @@ import '../../models/models.dart';
 
 class DatabaseHelper {
   static DatabaseHelper? _databaseHelper;
+
   DatabaseHelper._instance() {
     _databaseHelper = this;
   }

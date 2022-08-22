@@ -5,10 +5,9 @@ import 'package:core/utils/constants.dart';
 import 'package:core/utils/routes.dart';
 import 'package:core/utils/state_enum.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:provider/provider.dart';
-
-import '../../provider/movie_detail_notifier.dart';
+import 'package:movie/movie.dart';
 
 class MovieDetailPage extends StatefulWidget {
   final int id;
@@ -24,32 +23,56 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<MovieDetailNotifier>(context, listen: false)
-          .fetchMovieDetail(widget.id);
-      Provider.of<MovieDetailNotifier>(context, listen: false)
-          .loadWatchlistStatus(widget.id);
+      BlocProvider.of<MovieDetailBloc>(context)
+          .add(FetchMovieDetail(widget.id));
+      BlocProvider.of<MovieDetailBloc>(context)
+          .add(LoadWatchlistStatus(widget.id));
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<MovieDetailNotifier>(
-        builder: (context, provider, child) {
-          if (provider.movieState == RequestState.Loading) {
+      body: BlocConsumer<MovieDetailBloc, MovieDetailState>(
+        listener: (context, state) async {
+          if (state.watchlistMessage ==
+                  MovieDetailBloc.watchlistAddSuccessMessage ||
+              state.watchlistMessage ==
+                  MovieDetailBloc.watchlistRemoveSuccessMessage) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(state.watchlistMessage),
+            ));
+          } else {
+            await showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    content: Text(state.watchlistMessage),
+                  );
+                });
+          }
+        },
+        listenWhen: (previousState, currentState) =>
+            previousState.watchlistMessage != currentState.watchlistMessage &&
+            currentState.watchlistMessage != '',
+        builder: (context, state) {
+          if (state.movieDetailState == RequestState.Loading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (provider.movieState == RequestState.Loaded) {
-            final movie = provider.movie;
+          } else if (state.movieDetailState == RequestState.Loaded) {
+            final movie = state.movieDetail!;
             return SafeArea(
               child: DetailContent(
                 movie: movie,
-                isAddedWatchlist: provider.isAddedToWatchlist,
+                isAddedWatchlist: state.isAddedToWatchlist,
+                recommendations: state.movieRecommendations,
               ),
             );
+          } else if (state.movieDetailState == RequestState.Error) {
+            return Center(child: Text(state.message, style: kSubtitle));
           } else {
-            return Text(provider.message);
+            return Container();
           }
         },
       ),
@@ -59,10 +82,14 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
 
 class DetailContent extends StatelessWidget {
   final MovieDetail movie;
+  final List<Movie> recommendations;
   final bool isAddedWatchlist;
 
   const DetailContent(
-      {Key? key, required this.movie, required this.isAddedWatchlist})
+      {Key? key,
+      required this.movie,
+      required this.recommendations,
+      required this.isAddedWatchlist})
       : super(key: key);
 
   @override
@@ -106,40 +133,15 @@ class DetailContent extends StatelessWidget {
                               style: kHeading5,
                             ),
                             ElevatedButton(
-                              onPressed: () async {
+                              onPressed: () {
                                 if (!isAddedWatchlist) {
-                                  await Provider.of<MovieDetailNotifier>(
-                                          context,
+                                  BlocProvider.of<MovieDetailBloc>(context,
                                           listen: false)
-                                      .addWatchlist(movie);
+                                      .add(AddToWatchlist(movie));
                                 } else {
-                                  await Provider.of<MovieDetailNotifier>(
-                                          context,
+                                  BlocProvider.of<MovieDetailBloc>(context,
                                           listen: false)
-                                      .removeFromWatchlist(movie);
-                                }
-
-                                final message =
-                                    Provider.of<MovieDetailNotifier>(context,
-                                            listen: false)
-                                        .watchlistMessage;
-
-                                if (message ==
-                                        MovieDetailNotifier
-                                            .watchlistAddSuccessMessage ||
-                                    message ==
-                                        MovieDetailNotifier
-                                            .watchlistRemoveSuccessMessage) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text(message)));
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          content: Text(message),
-                                        );
-                                      });
+                                      .add(RemoveFromWatchlist(movie));
                                 }
                               },
                               child: Row(
@@ -181,59 +183,74 @@ class DetailContent extends StatelessWidget {
                               movie.overview,
                             ),
                             const SizedBox(height: 16),
-                            Consumer<MovieDetailNotifier>(
-                              builder: (context, data, child) {
-                                if (data.recommendationState ==
+                            Text(
+                              'Recommendations',
+                              style: kHeading6,
+                            ),
+                            BlocBuilder<MovieDetailBloc, MovieDetailState>(
+                              builder: (context, state) {
+                                if (state.movieRecommendationState ==
                                     RequestState.Loading) {
                                   return const Center(
                                     child: CircularProgressIndicator(),
                                   );
-                                } else if (data.recommendationState ==
+                                } else if (state.movieRecommendationState ==
                                     RequestState.Error) {
-                                  return Text(data.message);
-                                } else if (data.recommendationState ==
+                                  return Text(state.message);
+                                } else if (state.movieRecommendationState ==
                                     RequestState.Loaded) {
                                   return SizedBox(
                                     height: 150,
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) {
-                                        final movie =
-                                            data.movieRecommendations[index];
-                                        return Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: InkWell(
-                                            onTap: () {
-                                              Navigator.pushReplacementNamed(
-                                                context,
-                                                MOVIE_DETAIL_ROUTE,
-                                                arguments: movie.id,
+                                    child: state.movieRecommendations.isNotEmpty
+                                        ? ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemBuilder: (context, index) {
+                                              final movie = state
+                                                  .movieRecommendations[index];
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    Navigator
+                                                        .pushReplacementNamed(
+                                                      context,
+                                                      MOVIE_DETAIL_ROUTE,
+                                                      arguments: movie.id,
+                                                    );
+                                                  },
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                      Radius.circular(8),
+                                                    ),
+                                                    child: CachedNetworkImage(
+                                                      imageUrl:
+                                                          'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                                                      placeholder:
+                                                          (context, url) =>
+                                                              const Center(
+                                                        child:
+                                                            CircularProgressIndicator(),
+                                                      ),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          const Icon(
+                                                              Icons.error),
+                                                    ),
+                                                  ),
+                                                ),
                                               );
                                             },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                Radius.circular(8),
-                                              ),
-                                              child: CachedNetworkImage(
-                                                imageUrl:
-                                                    'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                                                placeholder: (context, url) =>
-                                                    const Center(
-                                                  child:
-                                                      CircularProgressIndicator(),
-                                                ),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        const Icon(Icons.error),
-                                              ),
-                                            ),
+                                            itemCount: state
+                                                .movieRecommendations.length,
+                                          )
+                                        : Container(
+                                            margin:
+                                                const EdgeInsets.only(left: 8),
+                                            child: Text('No recommendation',
+                                                style: kBodyText),
                                           ),
-                                        );
-                                      },
-                                      itemCount:
-                                          data.movieRecommendations.length,
-                                    ),
                                   );
                                 } else {
                                   return Container();
