@@ -2,6 +2,7 @@ import 'package:about/about_page.dart';
 import 'package:core/core.dart';
 import 'package:core/utils/routes.dart';
 import 'package:ditonton/injection.dart' as di;
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +11,14 @@ import 'package:provider/provider.dart';
 import 'package:search/search.dart';
 import 'package:tvshow/tvshow.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await HttpSSLPinning.init();
   di.init();
   runApp(MyApp());
 }

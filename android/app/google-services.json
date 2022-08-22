@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "821206888300",
+    "project_id": "movie-tvshow-6303c",
+    "storage_bucket": "movie-tvshow-6303c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:821206888300:android:a0611b80097a5e157f4d49",
+        "android_client_info": {
+          "package_name": "com.dicoding.ditonton"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "821206888300-b7uvpcplesspo5b2ddhtqmv51ml6puh3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD10MEZnUmD7gDotuF_wKsoElxg65KttWo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "821206888300-b7uvpcplesspo5b2ddhtqmv51ml6puh3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

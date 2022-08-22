@@ -38,6 +38,8 @@ dependencies:
     path: search
   tvshow:
     path: tvshow
+  firebase_core: ^1.21.0
+  firebase_crashlytics: ^2.8.8
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +64,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - certificates/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

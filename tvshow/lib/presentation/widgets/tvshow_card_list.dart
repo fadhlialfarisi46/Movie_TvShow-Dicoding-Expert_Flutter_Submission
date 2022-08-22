@@ -59,7 +59,9 @@ class TvShowCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        tvShow.overview ?? 'no overview',
+                        tvShow.overview!.isNotEmpty
+                            ? tvShow.overview!
+                            : 'no overview',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: kBodyText.copyWith(
