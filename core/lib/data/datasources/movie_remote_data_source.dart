@@ -21,9 +21,13 @@ abstract class MovieRemoteDataSource {
   Future<List<TvShowModel>> searchTvShows(String query);
 
   Future<List<TvShowModel>> getPopularTvShows();
+
   Future<List<TvShowModel>> getOnAirTvShows();
+
   Future<List<TvShowModel>> getTopRatedTvShows();
+
   Future<List<TvShowModel>> getRecommendationTvShow(int id);
+
   Future<DetailTvShowResponse> getDetailTvShow(int id);
 }
 

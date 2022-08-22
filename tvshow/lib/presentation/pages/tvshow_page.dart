@@ -3,12 +3,9 @@ import 'package:core/domain/entities/entities.dart';
 import 'package:core/styles/styles.dart';
 import 'package:core/utils/constants.dart';
 import 'package:core/utils/routes.dart';
-import 'package:core/utils/state_enum.dart';
-import 'package:core/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../provider/tvshow_list_notifier.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tvshow/presentation/bloc/tvshow_list_bloc/tvshow_list_bloc.dart';
 
 class TvShowPage extends StatefulWidget {
   const TvShowPage({Key? key}) : super(key: key);
@@ -17,29 +14,15 @@ class TvShowPage extends StatefulWidget {
   State<TvShowPage> createState() => _TvShowPageState();
 }
 
-class _TvShowPageState extends State<TvShowPage> with RouteAware {
+class _TvShowPageState extends State<TvShowPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-        () => Provider.of<TvShowListNotifier>(context, listen: false)
-          ..fetchOnAirTvShows()
-          ..fetchTopRatedTvShows()
-          ..fetchPopularTvShows());
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    routeObserver.subscribe(this, ModalRoute.of(context)!);
-  }
-
-  @override
-  void didPopNext() {
-    Provider.of<TvShowListNotifier>(context, listen: false)
-      ..fetchPopularTvShows()
-      ..fetchTopRatedTvShows()
-      ..fetchOnAirTvShows();
+    Future.microtask(() {
+      BlocProvider.of<PopularTvshowListBloc>(context).add(const TvshowEvent());
+      BlocProvider.of<OnAirTvshowListBloc>(context).add(const TvshowEvent());
+      BlocProvider.of<TopRatedTvshowListBloc>(context).add(const TvshowEvent());
+    });
   }
 
   @override
@@ -66,16 +49,14 @@ class _TvShowPageState extends State<TvShowPage> with RouteAware {
                 'Top Rated',
                 style: kHeading6,
               ),
-              Consumer<TvShowListNotifier>(builder: (context, data, child) {
-                final state = data.topRatedTvShowsState;
-                if (state == RequestState.Loading) {
+              BlocBuilder<TopRatedTvshowListBloc, TvshowListState>(
+                  builder: (_, state) {
+                if (state is TvshowListLoading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state == RequestState.Loaded) {
-                  return TvShowList(
-                    tvShows: data.topRatedTvShows,
-                  );
+                } else if (state is TvshowListLoaded) {
+                  return TvShowList(tvShows: state.tvShows);
                 } else {
                   return const Text('Failed');
                 }
@@ -84,16 +65,14 @@ class _TvShowPageState extends State<TvShowPage> with RouteAware {
                 title: 'On Air',
                 onTap: () => Navigator.pushNamed(context, ONAIR_TVSHOW_ROUTE),
               ),
-              Consumer<TvShowListNotifier>(builder: (context, data, child) {
-                final state = data.onAirTvShowsState;
-                if (state == RequestState.Loading) {
+              BlocBuilder<OnAirTvshowListBloc, TvshowListState>(
+                  builder: (_, state) {
+                if (state is TvshowListLoading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state == RequestState.Loaded) {
-                  return TvShowList(
-                    tvShows: data.onAirTvShows,
-                  );
+                } else if (state is TvshowListLoaded) {
+                  return TvShowList(tvShows: state.tvShows);
                 } else {
                   return const Text('Failed');
                 }
@@ -102,16 +81,14 @@ class _TvShowPageState extends State<TvShowPage> with RouteAware {
                 title: 'Popular',
                 onTap: () => Navigator.pushNamed(context, POPULAR_TVSHOW_ROUTE),
               ),
-              Consumer<TvShowListNotifier>(builder: (context, data, child) {
-                final state = data.popularTvShowsState;
-                if (state == RequestState.Loading) {
+              BlocBuilder<PopularTvshowListBloc, TvshowListState>(
+                  builder: (_, state) {
+                if (state is TvshowListLoading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state == RequestState.Loaded) {
-                  return TvShowList(
-                    tvShows: data.popularTvShows,
-                  );
+                } else if (state is TvshowListLoaded) {
+                  return TvShowList(tvShows: state.tvShows);
                 } else {
                   return const Text('Failed');
                 }
@@ -142,12 +119,6 @@ class _TvShowPageState extends State<TvShowPage> with RouteAware {
         ),
       ],
     );
-  }
-
-  @override
-  void dispose() {
-    routeObserver.unsubscribe(this);
-    super.dispose();
   }
 }
 

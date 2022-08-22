@@ -27,5 +27,5 @@ void main() {
     final result = await usecase.execute(tId);
     // assert
     expect(result, Right(tMovies));
-      });
+  });
 }
