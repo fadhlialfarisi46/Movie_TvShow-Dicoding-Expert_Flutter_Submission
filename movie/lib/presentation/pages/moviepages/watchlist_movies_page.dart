@@ -60,6 +60,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
               );
             } else if (state is WatchlistMovieEmpty) {
               return Center(
+                key: const Key('empty_message'),
                 child: Text(
                   state.message,
                   style: kHeading6,
@@ -67,6 +68,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
               );
             } else if (state is WatchlistMovieError) {
               return Center(
+                key: const Key('error_message'),
                 child: Text(
                   state.message,
                   style: kHeading6,

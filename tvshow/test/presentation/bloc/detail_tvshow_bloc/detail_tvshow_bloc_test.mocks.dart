@@ -48,7 +48,6 @@ class MockGetDetailTvShow extends _i1.Mock implements _i4.GetDetailTvShow {
               returnValue:
                   _FakeMovieRepository_0(this, Invocation.getter(#repository)))
           as _i2.MovieRepository);
-
   @override
   _i5.Future<_i3.Either<_i6.Failure, _i7.TvShowDetail>> execute(int? id) =>
       (super.noSuchMethod(Invocation.method(#execute, [id]),
@@ -74,7 +73,6 @@ class MockGetRecommendationTvShow extends _i1.Mock
               returnValue:
                   _FakeMovieRepository_0(this, Invocation.getter(#repository)))
           as _i2.MovieRepository);
-
   @override
   _i5.Future<_i3.Either<_i6.Failure, List<_i7.TvShow>>> execute(dynamic id) =>
       (super.noSuchMethod(Invocation.method(#execute, [id]),
@@ -100,7 +98,6 @@ class MockGetWatchListByIdTvShow extends _i1.Mock
               returnValue:
                   _FakeMovieRepository_0(this, Invocation.getter(#repository)))
           as _i2.MovieRepository);
-
   @override
   _i5.Future<bool> execute(int? id) =>
       (super.noSuchMethod(Invocation.method(#execute, [id]),
@@ -122,7 +119,6 @@ class MockInsertWatchlistTvShow extends _i1.Mock
               returnValue:
                   _FakeMovieRepository_0(this, Invocation.getter(#repository)))
           as _i2.MovieRepository);
-
   @override
   _i5.Future<_i3.Either<_i6.Failure, String>> execute(
           _i7.TvShowDetail? tvShowDetail) =>
@@ -148,7 +144,6 @@ class MockRemoveWatchlistTvShow extends _i1.Mock
               returnValue:
                   _FakeMovieRepository_0(this, Invocation.getter(#repository)))
           as _i2.MovieRepository);
-
   @override
   _i5.Future<_i3.Either<_i6.Failure, String>> execute(
           _i7.TvShowDetail? tvShowDetail) =>
