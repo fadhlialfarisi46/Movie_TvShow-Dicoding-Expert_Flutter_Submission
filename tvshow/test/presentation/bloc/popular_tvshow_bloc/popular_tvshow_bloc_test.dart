@@ -37,20 +37,21 @@ void main() {
 
   final tTvShowList = <TvShow>[tTvShow];
 
-  group('Airing Today Tv Shows', () {
+  group('Popular Tv Shows', () {
     test('Initial state should be empty', () {
       expect(popularTvshowBloc.state, PopularTvShowsEmpty());
     });
 
     blocTest<PopularTvshowBloc, PopularTvShowsState>(
-      'Should emit [PopularTvShowsLoading, OnairTvshowLoaded] when data is gotten successfully',
+      'Should emit [PopularTvShowsLoading, PopularTvshowLoaded] when data is gotten successfully',
       build: () {
         when(mockGetPopularTvShows.execute())
             .thenAnswer((_) async => Right(tTvShowList));
         return popularTvshowBloc;
       },
       act: (bloc) => bloc.add(PopularTvshowEvent()),
-      expect: () => [
+      expect: () =>
+      [
         PopularTvShowsLoading(),
         PopularTvShowsLoaded(tTvShowList),
       ],
@@ -60,14 +61,15 @@ void main() {
     );
 
     blocTest<PopularTvshowBloc, PopularTvShowsState>(
-      'Should emit [PopularTvShowsLoading, AiringTodayTvShowsError] when get Failure',
+      'Should emit [PopularTvShowsLoading, PopularTvShowsError] when get Failure',
       build: () {
         when(mockGetPopularTvShows.execute())
             .thenAnswer((_) async => Left(ServerFailure('Failed')));
         return popularTvshowBloc;
       },
       act: (bloc) => bloc.add(PopularTvshowEvent()),
-      expect: () => [
+      expect: () =>
+      [
         PopularTvShowsLoading(),
         PopularTvShowsError('Failed'),
       ],
