@@ -60,6 +60,7 @@ class _WatchlistTvShowsPageState extends State<WatchlistTvShowsPage>
               );
             } else if (state is WatchlistTvshowsEmpty) {
               return Center(
+                key: const Key('empty_message'),
                 child: Text(
                   state.message,
                   style: kHeading6,
@@ -67,6 +68,7 @@ class _WatchlistTvShowsPageState extends State<WatchlistTvShowsPage>
               );
             } else if (state is WatchlistTvshowsError) {
               return Center(
+                key: const Key('error_message'),
                 child: Text(
                   state.message,
                   style: kHeading6,
