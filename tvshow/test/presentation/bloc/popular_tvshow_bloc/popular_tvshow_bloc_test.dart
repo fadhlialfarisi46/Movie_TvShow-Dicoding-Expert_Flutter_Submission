@@ -21,7 +21,7 @@ void main() {
 
   final tTvShow = TvShow(
     backdropPath: 'backdropPath',
-    genreIds: [1, 2, 3],
+    genreIds: const [1, 2, 3],
     id: 1,
     overview: 'overview',
     popularity: 1,
@@ -31,7 +31,7 @@ void main() {
     firstAirDate: DateTime.parse('2022-14-08'),
     originalLanguage: 'en',
     name: 'name',
-    originCountry: ['en'],
+    originCountry: const ['en'],
     originalName: 'originalName',
   );
 
@@ -64,14 +64,14 @@ void main() {
       'Should emit [PopularTvShowsLoading, PopularTvShowsError] when get Failure',
       build: () {
         when(mockGetPopularTvShows.execute())
-            .thenAnswer((_) async => Left(ServerFailure('Failed')));
+            .thenAnswer((_) async => const Left(ServerFailure('Failed')));
         return popularTvshowBloc;
       },
       act: (bloc) => bloc.add(PopularTvshowEvent()),
       expect: () =>
       [
         PopularTvShowsLoading(),
-        PopularTvShowsError('Failed'),
+        const PopularTvShowsError('Failed'),
       ],
       verify: (_) {
         verify(mockGetPopularTvShows.execute());

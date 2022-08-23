@@ -44,14 +44,14 @@ void main() {
 
   final detailTvshowState = DetailTvshowState.initial();
 
-  final tId = 1;
+  const tId = 1;
   final tTvShow = TvShow(
     backdropPath: 'backdropPath',
     firstAirDate: DateTime.parse('2022-14-08'),
-    genreIds: [1, 2, 3],
+    genreIds: const [1, 2, 3],
     id: 1,
     name: 'name',
-    originCountry: ['en'],
+    originCountry: const ['en'],
     originalLanguage: 'originalLanguage',
     originalName: 'originalName',
     overview: 'overview',
@@ -72,7 +72,7 @@ void main() {
             .thenAnswer((_) async => Right(tTvShowS));
         return detailTvshowBloc;
       },
-      act: (bloc) => bloc.add(FetchDetailTvShow(tId)),
+      act: (bloc) => bloc.add(const FetchDetailTvShow(tId)),
       expect: () => [
         detailTvshowState.copyWith(tvShowDetailState: RequestState.Loading),
         detailTvshowState.copyWith(
@@ -101,10 +101,10 @@ void main() {
         when(mockGetDetailTvShow.execute(tId))
             .thenAnswer((_) async => Right(testTvShowDetail));
         when(mockGetRecommendationTvShow.execute(tId))
-            .thenAnswer((_) async => Left(ConnectionFailure('Failed')));
+            .thenAnswer((_) async => const Left(ConnectionFailure('Failed')));
         return detailTvshowBloc;
       },
-      act: (bloc) => bloc.add(FetchDetailTvShow(tId)),
+      act: (bloc) => bloc.add(const FetchDetailTvShow(tId)),
       expect: () => [
         detailTvshowState.copyWith(tvShowDetailState: RequestState.Loading),
         detailTvshowState.copyWith(
@@ -130,12 +130,12 @@ void main() {
       'Shoud emit TvShowDetailError when Get TvShow Detail Failed',
       build: () {
         when(mockGetDetailTvShow.execute(tId))
-            .thenAnswer((_) async => Left(ConnectionFailure('Failed')));
+            .thenAnswer((_) async => const Left(ConnectionFailure('Failed')));
         when(mockGetRecommendationTvShow.execute(tId))
             .thenAnswer((_) async => Right(tTvShowS));
         return detailTvshowBloc;
       },
-      act: (bloc) => bloc.add(FetchDetailTvShow(tId)),
+      act: (bloc) => bloc.add(const FetchDetailTvShow(tId)),
       expect: () => [
         detailTvshowState.copyWith(tvShowDetailState: RequestState.Loading),
         detailTvshowState.copyWith(
@@ -153,7 +153,7 @@ void main() {
       'Shoud emit WatchlistMessage and isAddedToWatchlist True when Success AddWatchlist',
       build: () {
         when(mockInsertWatchlistTvShow.execute(testTvShowDetail))
-            .thenAnswer((_) async => Right('Added to Watchlist'));
+            .thenAnswer((_) async => const Right('Added to Watchlist'));
         when(mockGetWatchListByIdTvShow.execute(testTvShowDetail.id))
             .thenAnswer((_) async => true);
         return detailTvshowBloc;
@@ -174,7 +174,7 @@ void main() {
       'Shoud emit watchlistMessage when Failed',
       build: () {
         when(mockInsertWatchlistTvShow.execute(testTvShowDetail))
-            .thenAnswer((_) async => Left(DatabaseFailure('Failed')));
+            .thenAnswer((_) async => const Left(DatabaseFailure('Failed')));
         when(mockGetWatchListByIdTvShow.execute(testTvShowDetail.id))
             .thenAnswer((_) async => false);
         return detailTvshowBloc;
@@ -195,7 +195,7 @@ void main() {
       'Shoud emit WatchlistMessage and isAddedToWatchlist False when Success RemoveFromWatchlist',
       build: () {
         when(mockRemoveWatchlistTvShow.execute(testTvShowDetail))
-            .thenAnswer((_) async => Right('Removed From Watchlist'));
+            .thenAnswer((_) async => const Right('Removed From Watchlist'));
         when(mockGetWatchListByIdTvShow.execute(testTvShowDetail.id))
             .thenAnswer((_) async => false);
         return detailTvshowBloc;
@@ -216,7 +216,7 @@ void main() {
       'Shoud emit watchlistMessage when Failed',
       build: () {
         when(mockRemoveWatchlistTvShow.execute(testTvShowDetail))
-            .thenAnswer((_) async => Left(DatabaseFailure('Failed')));
+            .thenAnswer((_) async => const Left(DatabaseFailure('Failed')));
         when(mockGetWatchListByIdTvShow.execute(testTvShowDetail.id))
             .thenAnswer((_) async => false);
         return detailTvshowBloc;
@@ -240,7 +240,7 @@ void main() {
             .thenAnswer((_) async => true);
         return detailTvshowBloc;
       },
-      act: (bloc) => bloc.add(LoadWatchlistStatus(tId)),
+      act: (bloc) => bloc.add(const LoadWatchlistStatus(tId)),
       expect: () => [
         detailTvshowState.copyWith(isAddedToWatchlist: true),
       ],

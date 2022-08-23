@@ -33,7 +33,7 @@ void main() {
 
   final tTvShow = TvShow(
     backdropPath: 'backdropPath',
-    genreIds: [1, 2, 3],
+    genreIds: const [1, 2, 3],
     id: 1,
     overview: 'overview',
     popularity: 1,
@@ -43,7 +43,7 @@ void main() {
     firstAirDate: DateTime.parse('2022-14-08'),
     originalLanguage: 'en',
     name: 'name',
-    originCountry: ['en'],
+    originCountry: const ['en'],
     originalName: 'originalName',
   );
   final tTvShowList = <TvShow>[tTvShow];
@@ -60,7 +60,7 @@ void main() {
             .thenAnswer((_) async => Right(tTvShowList));
         return onAirTvshowListBloc;
       },
-      act: (bloc) => bloc.add(TvshowEvent()),
+      act: (bloc) => bloc.add(const TvshowEvent()),
       expect: () => [
         TvshowListLoading(),
         TvshowListLoaded(tTvShowList),
@@ -74,13 +74,13 @@ void main() {
       'Should emit [TvshowListLoading, TvShowListError] when get Failure',
       build: () {
         when(mockGetOnAirTvShows.execute())
-            .thenAnswer((_) async => Left(ServerFailure('Failed')));
+            .thenAnswer((_) async => const Left(ServerFailure('Failed')));
         return onAirTvshowListBloc;
       },
-      act: (bloc) => bloc.add(TvshowEvent()),
+      act: (bloc) => bloc.add(const TvshowEvent()),
       expect: () => [
         TvshowListLoading(),
-        TvshowListError('Failed'),
+        const TvshowListError('Failed'),
       ],
       verify: (_) {
         verify(mockGetOnAirTvShows.execute());
@@ -100,7 +100,7 @@ void main() {
             .thenAnswer((_) async => Right(tTvShowList));
         return popularTvshowListBloc;
       },
-      act: (bloc) => bloc.add(TvshowEvent()),
+      act: (bloc) => bloc.add(const TvshowEvent()),
       expect: () => [
         TvshowListLoading(),
         TvshowListLoaded(tTvShowList),
@@ -114,13 +114,13 @@ void main() {
       'Should emit [TvshowListLoading, TvShowListError] when get Failure',
       build: () {
         when(mockGetPopularTvShows.execute())
-            .thenAnswer((_) async => Left(ServerFailure('Failed')));
+            .thenAnswer((_) async => const Left(ServerFailure('Failed')));
         return popularTvshowListBloc;
       },
-      act: (bloc) => bloc.add(TvshowEvent()),
+      act: (bloc) => bloc.add(const TvshowEvent()),
       expect: () => [
         TvshowListLoading(),
-        TvshowListError('Failed'),
+        const TvshowListError('Failed'),
       ],
       verify: (_) {
         verify(mockGetPopularTvShows.execute());
@@ -140,7 +140,7 @@ void main() {
             .thenAnswer((_) async => Right(tTvShowList));
         return topRatedTvshowListBloc;
       },
-      act: (bloc) => bloc.add(TvshowEvent()),
+      act: (bloc) => bloc.add(const TvshowEvent()),
       expect: () => [
         TvshowListLoading(),
         TvshowListLoaded(tTvShowList),
@@ -154,13 +154,13 @@ void main() {
       'Should emit [TvshowListLoading, TvShowListError] when get Failure',
       build: () {
         when(mockGetTopRatedTvShows.execute())
-            .thenAnswer((_) async => Left(ServerFailure('Failed')));
+            .thenAnswer((_) async => const Left(ServerFailure('Failed')));
         return topRatedTvshowListBloc;
       },
-      act: (bloc) => bloc.add(TvshowEvent()),
+      act: (bloc) => bloc.add(const TvshowEvent()),
       expect: () => [
         TvshowListLoading(),
-        TvshowListError('Failed'),
+        const TvshowListError('Failed'),
       ],
       verify: (_) {
         verify(mockGetTopRatedTvShows.execute());

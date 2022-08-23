@@ -1,7 +1,7 @@
 part of 'models.dart';
 
 class GenreModel extends Equatable {
-  GenreModel({
+  const GenreModel({
     required this.id,
     required this.name,
   });

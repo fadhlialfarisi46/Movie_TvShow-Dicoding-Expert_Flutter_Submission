@@ -43,7 +43,7 @@ void main() {
     final progressBarFinder = find.byType(CircularProgressIndicator);
     final centerFinder = find.byType(Center);
 
-    await tester.pumpWidget(_makeTestableWidget(PopularTvShowPage()));
+    await tester.pumpWidget(_makeTestableWidget(const PopularTvShowPage()));
 
     expect(centerFinder, findsOneWidget);
     expect(progressBarFinder, findsOneWidget);
@@ -51,24 +51,24 @@ void main() {
 
   testWidgets('Page should display ListView when data is loaded',
       (WidgetTester tester) async {
-    when(() => mockPopularTvShowsBloc.state)
-        .thenReturn(PopularTvShowsLoaded(<TvShow>[]));
+        when(() => mockPopularTvShowsBloc.state)
+        .thenReturn(const PopularTvShowsLoaded(<TvShow>[]));
 
     final listViewFinder = find.byType(ListView);
 
-    await tester.pumpWidget(_makeTestableWidget(PopularTvShowPage()));
+    await tester.pumpWidget(_makeTestableWidget(const PopularTvShowPage()));
 
     expect(listViewFinder, findsOneWidget);
   });
 
   testWidgets('Page should display text with message when Error',
       (WidgetTester tester) async {
-    when(() => mockPopularTvShowsBloc.state)
-        .thenReturn(PopularTvShowsError('Failed'));
+        when(() => mockPopularTvShowsBloc.state)
+        .thenReturn(const PopularTvShowsError('Failed'));
 
-    final textFinder = find.byKey(Key('error_message'));
+    final textFinder = find.byKey(const Key('error_message'));
 
-    await tester.pumpWidget(_makeTestableWidget(PopularTvShowPage()));
+    await tester.pumpWidget(_makeTestableWidget(const PopularTvShowPage()));
 
     expect(textFinder, findsOneWidget);
   });

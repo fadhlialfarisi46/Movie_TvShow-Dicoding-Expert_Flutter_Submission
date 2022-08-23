@@ -1,7 +1,7 @@
 part of 'models.dart';
 
 class MovieModel extends Equatable {
-  MovieModel({
+  const MovieModel({
     required this.adult,
     required this.backdropPath,
     required this.genreIds,

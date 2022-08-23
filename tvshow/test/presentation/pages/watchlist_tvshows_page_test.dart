@@ -38,50 +38,50 @@ void main() {
   testWidgets('Page should display center progress bar when loading',
           (WidgetTester tester) async {
         when(() => mockWatchListTvShowsBloc.state)
-            .thenReturn(WatchlistTvshowsLoading());
+        .thenReturn(WatchlistTvshowsLoading());
 
-        final progressBarFinder = find.byType(CircularProgressIndicator);
-        final centerFinder = find.byType(Center);
+    final progressBarFinder = find.byType(CircularProgressIndicator);
+    final centerFinder = find.byType(Center);
 
-        await tester.pumpWidget(_makeTestableWidget(WatchlistTvShowsPage()));
+    await tester.pumpWidget(_makeTestableWidget(const WatchlistTvShowsPage()));
 
-        expect(centerFinder, findsOneWidget);
-        expect(progressBarFinder, findsOneWidget);
-      });
+    expect(centerFinder, findsOneWidget);
+    expect(progressBarFinder, findsOneWidget);
+  });
 
   testWidgets('Page should display ListView when data is loaded',
           (WidgetTester tester) async {
-        when(() => mockWatchListTvShowsBloc.state)
-            .thenReturn(WatchlistTvshowsHasData(<TvShow>[]));
+            when(() => mockWatchListTvShowsBloc.state)
+        .thenReturn(const WatchlistTvshowsHasData(<TvShow>[]));
 
-        final listViewFinder = find.byType(ListView);
+    final listViewFinder = find.byType(ListView);
 
-        await tester.pumpWidget(_makeTestableWidget(WatchlistTvShowsPage()));
+    await tester.pumpWidget(_makeTestableWidget(const WatchlistTvShowsPage()));
 
-        expect(listViewFinder, findsOneWidget);
-      });
+    expect(listViewFinder, findsOneWidget);
+  });
 
   testWidgets('Page should display text with message when Error',
           (WidgetTester tester) async {
-        when(() => mockWatchListTvShowsBloc.state)
-            .thenReturn(WatchlistTvshowsError('Failed'));
+            when(() => mockWatchListTvShowsBloc.state)
+        .thenReturn(const WatchlistTvshowsError('Failed'));
 
-        final textFinder = find.byKey(Key('error_message'));
+    final textFinder = find.byKey(const Key('error_message'));
 
-        await tester.pumpWidget(_makeTestableWidget(WatchlistTvShowsPage()));
+    await tester.pumpWidget(_makeTestableWidget(const WatchlistTvShowsPage()));
 
-        expect(textFinder, findsOneWidget);
-      });
+    expect(textFinder, findsOneWidget);
+  });
 
   testWidgets('Page should display text with message when Empty',
           (WidgetTester tester) async {
-        when(() => mockWatchListTvShowsBloc.state)
-            .thenReturn(WatchlistTvshowsEmpty('You haven\'t added any yet'));
+            when(() => mockWatchListTvShowsBloc.state)
+        .thenReturn(const WatchlistTvshowsEmpty('You haven\'t added any yet'));
 
-        final textFinder = find.byKey(Key('empty_message'));
+    final textFinder = find.byKey(const Key('empty_message'));
 
-        await tester.pumpWidget(_makeTestableWidget(WatchlistTvShowsPage()));
+    await tester.pumpWidget(_makeTestableWidget(const WatchlistTvShowsPage()));
 
-        expect(textFinder, findsOneWidget);
-      });
+    expect(textFinder, findsOneWidget);
+  });
 }

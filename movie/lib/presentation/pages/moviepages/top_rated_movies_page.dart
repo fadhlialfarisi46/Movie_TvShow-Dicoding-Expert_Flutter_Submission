@@ -5,7 +5,7 @@ import 'package:movie/presentation/bloc/top_rated_movies_bloc/top_rated_movies_b
 import '../../widgets/movie_card_list.dart';
 
 class TopRatedMoviesPage extends StatefulWidget {
-  TopRatedMoviesPage({Key? key}) : super(key: key);
+  const TopRatedMoviesPage({Key? key}) : super(key: key);
 
   @override
   _TopRatedMoviesPageState createState() => _TopRatedMoviesPageState();

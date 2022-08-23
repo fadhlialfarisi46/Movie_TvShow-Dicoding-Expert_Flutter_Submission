@@ -3,7 +3,7 @@ part of 'models.dart';
 class TvShowResponse extends Equatable {
   final List<TvShowModel> results;
 
-  TvShowResponse({required this.results});
+  const TvShowResponse({required this.results});
 
   factory TvShowResponse.fromJson(Map<String, dynamic> json) => TvShowResponse(
         results: List<TvShowModel>.from(

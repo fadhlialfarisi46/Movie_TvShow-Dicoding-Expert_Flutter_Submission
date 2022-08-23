@@ -4,7 +4,7 @@ import 'package:core/domain/entities/entities.dart';
 final testMovie = Movie(
   adult: false,
   backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
-  genreIds: [14, 28],
+  genreIds: const [14, 28],
   id: 557,
   originalTitle: 'Spider-Man',
   overview:
@@ -22,7 +22,7 @@ final testMovieList = [testMovie];
 
 final testTvshow = TvShow(
   backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
-  genreIds: [14, 28],
+  genreIds: const [14, 28],
   id: 557,
   overview:
       'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
@@ -31,7 +31,7 @@ final testTvshow = TvShow(
   voteAverage: 7.2,
   voteCount: 13507,
   originalLanguage: 'en',
-  originCountry: ['en'],
+  originCountry: const ['en'],
   originalName: 'Spider-Man',
   firstAirDate: DateTime.parse('2022-14-08'),
   name: 'Spider-Man',
@@ -39,7 +39,7 @@ final testTvshow = TvShow(
 
 final testTvshowList = [testTvshow];
 
-final testMovieDetail = MovieDetail(
+const testMovieDetail = MovieDetail(
   adult: false,
   backdropPath: 'backdropPath',
   genres: [Genre(id: 1, name: 'Action')],
@@ -57,11 +57,11 @@ final testMovieDetail = MovieDetail(
 final testTvShowDetail = TvShowDetail(
   adult: false,
   backdropPath: 'backdropPath',
-  episodeRunTime: [1],
+  episodeRunTime: const [1],
   firstAirDate: DateTime.parse('2022-14-08'),
-  genres: [Genre(id: 1, name: 'Action')],
+  genres: const [Genre(id: 1, name: 'Action')],
   id: 1,
-  languages: ['en'],
+  languages: const ['en'],
   lastAirDate: DateTime.parse('2022-14-08'),
   lastEpisodeToAir: LastEpisodeToAir(
       airDate: DateTime.parse('2022-14-08'),
@@ -79,7 +79,7 @@ final testTvShowDetail = TvShowDetail(
   name: 'name',
   numberOfEpisodes: 1,
   numberOfSeasons: 1,
-  originCountry: ['en'],
+  originCountry: const ['en'],
   originalLanguage: 'originalLanguage',
   originalName: 'originalName',
   overview: 'overview',
@@ -117,7 +117,7 @@ final testWatchlistTvShow = TvShow.watchlist(
   voteAverage: 1,
 );
 
-final testMovieTable = MovieTable(
+const testMovieTable = MovieTable(
   id: 1,
   title: 'title',
   posterPath: 'posterPath',

@@ -1,7 +1,7 @@
 part of 'models.dart';
 
 class TvShowModel extends Equatable {
-  TvShowModel({
+  const TvShowModel({
     required this.backdropPath,
     required this.firstAirDate,
     required this.genreIds,
@@ -32,8 +32,7 @@ class TvShowModel extends Equatable {
   final int voteCount;
 
   factory TvShowModel.fromJson(Map<String, dynamic> json) => TvShowModel(
-        backdropPath:
-            json["backdrop_path"] == null ? '-' : json["backdrop_path"],
+    backdropPath: json["backdrop_path"] ?? '-',
         firstAirDate: DateTime.tryParse(json["first_air_date"]),
         genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
         id: json["id"],

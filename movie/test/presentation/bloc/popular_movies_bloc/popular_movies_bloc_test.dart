@@ -23,7 +23,7 @@ void main() {
   final tMovie = Movie(
     adult: false,
     backdropPath: 'backdropPath',
-    genreIds: [1, 2, 3],
+    genreIds: const [1, 2, 3],
     id: 1,
     originalTitle: 'originalTitle',
     overview: 'overview',
@@ -64,13 +64,14 @@ void main() {
       'Should emit [PopularMoviesLoading, PopularMoviesError] when get Failure',
       build: () {
         when(mockGetPopularMovies.execute())
-            .thenAnswer((_) async => Left(ServerFailure('Failed')));
+            .thenAnswer((_) async => const Left(ServerFailure('Failed')));
         return popularMoviesBloc;
       },
       act: (bloc) => bloc.add(PopularMoviesEvent()),
-      expect: () => [
+      expect: () =>
+      [
         PopularMoviesLoading(),
-        PopularMoviesError('Failed'),
+        const PopularMoviesError('Failed'),
       ],
       verify: (_) {
         verify(mockGetPopularMovies.execute());

@@ -113,7 +113,7 @@ void main() {
   });
 
   group('get movie detail', () {
-    final tId = 1;
+    const tId = 1;
     final tMovieDetail = MovieDetailResponse.fromJson(
         json.decode(readJson('dummy_data/movie_detail.json')));
 
@@ -144,7 +144,7 @@ void main() {
     final tMovieList = MovieResponse.fromJson(
             json.decode(readJson('dummy_data/movie_recommendations.json')))
         .movieList;
-    final tId = 1;
+    const tId = 1;
 
     test('should return list of Movie Model when the response code is 200',
         () async {
@@ -176,7 +176,7 @@ void main() {
     final tSearchResult = MovieResponse.fromJson(
             json.decode(readJson('dummy_data/search_spiderman_movie.json')))
         .movieList;
-    final tQuery = 'Spiderman';
+    const tQuery = 'Spiderman';
 
     test('should return list of movies when response code is 200', () async {
       // arrange
@@ -292,7 +292,7 @@ void main() {
   });
 
   group('get tvshow detail', () {
-    final tId = 100;
+    const tId = 100;
     final tTvshowDetail = DetailTvShowResponse.fromJson(
         json.decode(readJson('dummy_data/tvshow_detail.json')));
 
@@ -323,7 +323,7 @@ void main() {
     final tTvShowList = TvShowResponse.fromJson(
             json.decode(readJson('dummy_data/tvshow_recommendations.json')))
         .results;
-    final tId = 100;
+    const tId = 100;
 
     test('should return list of Tvshow Model when the response code is 200',
         () async {
@@ -355,7 +355,7 @@ void main() {
     final tSearchResult = TvShowResponse.fromJson(json
             .decode(readJson('dummy_data/search_peakyblinders_tvshow.json')))
         .results;
-    final tQuery = 'peaky blinder';
+    const tQuery = 'peaky blinder';
 
     test('should return list of tvshows when response code is 200', () async {
       // arrange

@@ -24,7 +24,7 @@ void main() {
 
   group('Watchlist Movies', () {
     test('Initial state should be empty', () {
-      expect(watchlistMovieBloc.state, WatchlistMovieEmpty(''));
+      expect(watchlistMovieBloc.state, const WatchlistMovieEmpty(''));
     });
 
     blocTest<WatchlistMovieBloc, WatchlistMovieState>(
@@ -48,14 +48,15 @@ void main() {
       'Should emit [WatchlistMovieLoading, WatchlistMovieHasData[], WatchlistMovieEmpty] when data is empty',
       build: () {
         when(mockGetWatchlistMovies.execute())
-            .thenAnswer((_) async => Right(<Movie>[]));
+            .thenAnswer((_) async => const Right(<Movie>[]));
         return watchlistMovieBloc;
       },
       act: (bloc) => bloc.add(WatchlistMovieEvent()),
-      expect: () => [
+      expect: () =>
+      [
         WatchlistMovieLoading(),
-        WatchlistMovieHasData(<Movie>[]),
-        WatchlistMovieEmpty('You haven\'t added any yet'),
+        const WatchlistMovieHasData(<Movie>[]),
+        const WatchlistMovieEmpty('You haven\'t added any yet'),
       ],
       verify: (bloc) {
         verify(mockGetWatchlistMovies.execute());
@@ -65,14 +66,15 @@ void main() {
     blocTest<WatchlistMovieBloc, WatchlistMovieState>(
       'Should emit [WatchlistMovieLoading, WatchlistError] when data is unsuccessful',
       build: () {
-        when(mockGetWatchlistMovies.execute())
-            .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+        when(mockGetWatchlistMovies.execute()).thenAnswer(
+            (_) async => const Left(ServerFailure('Server Failure')));
         return watchlistMovieBloc;
       },
       act: (bloc) => bloc.add(WatchlistMovieEvent()),
-      expect: () => [
+      expect: () =>
+      [
         WatchlistMovieLoading(),
-        WatchlistMovieError('Server Failure'),
+        const WatchlistMovieError('Server Failure'),
       ],
       verify: (bloc) {
         verify(mockGetWatchlistMovies.execute());

@@ -45,7 +45,7 @@ void main() {
 
     final progressBarFinder = find.byType(CircularProgressIndicator);
 
-    await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
+    await tester.pumpWidget(_makeTestableWidget(const MovieDetailPage(id: 1)));
 
     expect(progressBarFinder, findsOneWidget);
   });
@@ -63,7 +63,7 @@ void main() {
 
     final progressBarFinder = find.byType(CircularProgressIndicator);
 
-    await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
+    await tester.pumpWidget(_makeTestableWidget(const MovieDetailPage(id: 1)));
 
     expect(progressBarFinder, findsWidgets);
   });
@@ -82,7 +82,7 @@ void main() {
 
     final watchlistButtonIcon = find.byIcon(Icons.add);
 
-    await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
+    await tester.pumpWidget(_makeTestableWidget(const MovieDetailPage(id: 1)));
 
     expect(watchlistButtonIcon, findsOneWidget);
   });
@@ -101,7 +101,7 @@ void main() {
 
     final watchlistButtonIcon = find.byIcon(Icons.check);
 
-    await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
+    await tester.pumpWidget(_makeTestableWidget(const MovieDetailPage(id: 1)));
 
     expect(watchlistButtonIcon, findsOneWidget);
   });
@@ -132,7 +132,7 @@ void main() {
 
     final watchlistButton = find.byType(ElevatedButton);
 
-    await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
+    await tester.pumpWidget(_makeTestableWidget(const MovieDetailPage(id: 1)));
     await tester.pump();
 
     expect(find.byIcon(Icons.add), findsOneWidget);
@@ -170,7 +170,7 @@ void main() {
 
     final watchlistButton = find.byType(ElevatedButton);
 
-    await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
+    await tester.pumpWidget(_makeTestableWidget(const MovieDetailPage(id: 1)));
     await tester.pump();
 
     expect(find.byIcon(Icons.add), findsOneWidget);
@@ -216,7 +216,7 @@ void main() {
 
     final watchlistButton = find.byType(ElevatedButton);
 
-    await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
+    await tester.pumpWidget(_makeTestableWidget(const MovieDetailPage(id: 1)));
     await tester.pump();
 
     expect(find.byIcon(Icons.add), findsOneWidget);
@@ -231,14 +231,14 @@ void main() {
   testWidgets(
       'Detail Movie Page should display Error Text when No Internet Network (Error)',
       (WidgetTester tester) async {
-    when(() => mockMovieDetailBloc.state).thenReturn(MovieDetailState.initial()
+        when(() => mockMovieDetailBloc.state).thenReturn(MovieDetailState.initial()
         .copyWith(
             movieDetailState: RequestState.Error,
             message: 'Failed to connect to the network'));
 
     final textErrorBarFinder = find.text('Failed to connect to the network');
 
-    await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
+    await tester.pumpWidget(_makeTestableWidget(const MovieDetailPage(id: 1)));
     await tester.pump();
 
     expect(textErrorBarFinder, findsOneWidget);

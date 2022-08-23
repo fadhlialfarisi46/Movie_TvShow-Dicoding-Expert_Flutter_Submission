@@ -9,10 +9,10 @@ void main() {
   final tTvShowModel = TvShowModel(
       backdropPath: "/eiRLR7HN0hdyYsahegb0FP1Yra0.jpg",
       firstAirDate: DateTime.tryParse("2022-07-28"),
-      genreIds: [18, 9648],
+      genreIds: const [18, 9648],
       id: 110531,
       name: "Pretty Little Liars: Original Sin",
-      originCountry: ["US"],
+      originCountry: const ["US"],
       originalLanguage: "en",
       originalName: "Pretty Little Liars: Original Sin",
       overview:

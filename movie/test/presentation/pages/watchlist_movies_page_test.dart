@@ -43,7 +43,7 @@ void main() {
     final progressBarFinder = find.byType(CircularProgressIndicator);
     final centerFinder = find.byType(Center);
 
-    await tester.pumpWidget(_makeTestableWidget(WatchlistMoviesPage()));
+    await tester.pumpWidget(_makeTestableWidget(const WatchlistMoviesPage()));
 
     expect(centerFinder, findsOneWidget);
     expect(progressBarFinder, findsOneWidget);
@@ -51,36 +51,36 @@ void main() {
 
   testWidgets('Page should display ListView when data is loaded',
       (WidgetTester tester) async {
-    when(() => mockWatchlistMovieBloc.state)
-        .thenReturn(WatchlistMovieHasData(<Movie>[]));
+        when(() => mockWatchlistMovieBloc.state)
+        .thenReturn(const WatchlistMovieHasData(<Movie>[]));
 
     final listViewFinder = find.byType(ListView);
 
-    await tester.pumpWidget(_makeTestableWidget(WatchlistMoviesPage()));
+    await tester.pumpWidget(_makeTestableWidget(const WatchlistMoviesPage()));
 
     expect(listViewFinder, findsOneWidget);
   });
 
   testWidgets('Page should display text with message when Error',
       (WidgetTester tester) async {
-    when(() => mockWatchlistMovieBloc.state)
-        .thenReturn(WatchlistMovieError('Failed'));
+        when(() => mockWatchlistMovieBloc.state)
+        .thenReturn(const WatchlistMovieError('Failed'));
 
-    final textFinder = find.byKey(Key('error_message'));
+    final textFinder = find.byKey(const Key('error_message'));
 
-    await tester.pumpWidget(_makeTestableWidget(WatchlistMoviesPage()));
+    await tester.pumpWidget(_makeTestableWidget(const WatchlistMoviesPage()));
 
     expect(textFinder, findsOneWidget);
   });
 
   testWidgets('Page should display text with message when Empty',
       (WidgetTester tester) async {
-    when(() => mockWatchlistMovieBloc.state)
-        .thenReturn(WatchlistMovieEmpty('You haven\'t added any yet'));
+        when(() => mockWatchlistMovieBloc.state)
+        .thenReturn(const WatchlistMovieEmpty('You haven\'t added any yet'));
 
-    final textFinder = find.byKey(Key('empty_message'));
+    final textFinder = find.byKey(const Key('empty_message'));
 
-    await tester.pumpWidget(_makeTestableWidget(WatchlistMoviesPage()));
+    await tester.pumpWidget(_makeTestableWidget(const WatchlistMoviesPage()));
 
     expect(textFinder, findsOneWidget);
   });

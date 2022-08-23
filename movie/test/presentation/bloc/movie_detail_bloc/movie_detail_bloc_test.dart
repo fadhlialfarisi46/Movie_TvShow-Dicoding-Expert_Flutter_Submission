@@ -45,12 +45,12 @@ void main() {
     );
   });
 
-  final tId = 1;
+  const tId = 1;
   final movieDetailStateInit = MovieDetailState.initial();
   final tMovie = Movie(
     adult: false,
     backdropPath: 'backdropPath',
-    genreIds: [1, 2, 3],
+    genreIds: const [1, 2, 3],
     id: 1,
     originalTitle: 'originalTitle',
     overview: 'overview',
@@ -64,7 +64,7 @@ void main() {
   );
   final tMovies = <Movie>[tMovie];
 
-  final tMovieDetail = MovieDetail(
+  const tMovieDetail = MovieDetail(
     adult: false,
     backdropPath: 'backdropPath',
     genres: [Genre(id: 1, name: 'Comedy')],
@@ -84,12 +84,12 @@ void main() {
       'Shoud emit MovieDetailLoading, RecomendationLoading, MovieDetailLoaded and RecomendationLoaded when get  Detail Movies and Recommendation Success',
       build: () {
         when(mockGetMovieDetail.execute(tId))
-            .thenAnswer((_) async => Right(tMovieDetail));
+            .thenAnswer((_) async => const Right(tMovieDetail));
         when(mockGetMovieRecommendations.execute(tId))
             .thenAnswer((_) async => Right(tMovies));
         return movieDetailBloc;
       },
-      act: (bloc) => bloc.add(FetchMovieDetail(tId)),
+      act: (bloc) => bloc.add(const FetchMovieDetail(tId)),
       expect: () => [
         movieDetailStateInit.copyWith(movieDetailState: RequestState.Loading),
         movieDetailStateInit.copyWith(
@@ -116,12 +116,12 @@ void main() {
       'Shoud emit MovieDetailLoading, RecomendationLoading, MovieDetailLoaded and RecommendationError when Get MovieRecommendations Failed',
       build: () {
         when(mockGetMovieDetail.execute(tId))
-            .thenAnswer((_) async => Right(tMovieDetail));
+            .thenAnswer((_) async => const Right(tMovieDetail));
         when(mockGetMovieRecommendations.execute(tId))
-            .thenAnswer((_) async => Left(ConnectionFailure('Failed')));
+            .thenAnswer((_) async => const Left(ConnectionFailure('Failed')));
         return movieDetailBloc;
       },
-      act: (bloc) => bloc.add(FetchMovieDetail(tId)),
+      act: (bloc) => bloc.add(const FetchMovieDetail(tId)),
       expect: () => [
         movieDetailStateInit.copyWith(movieDetailState: RequestState.Loading),
         movieDetailStateInit.copyWith(
@@ -147,12 +147,12 @@ void main() {
       'Shoud emit MovieDetailError when Get Movie Detail Failed',
       build: () {
         when(mockGetMovieDetail.execute(tId))
-            .thenAnswer((_) async => Left(ConnectionFailure('Failed')));
+            .thenAnswer((_) async => const Left(ConnectionFailure('Failed')));
         when(mockGetMovieRecommendations.execute(tId))
             .thenAnswer((_) async => Right(tMovies));
         return movieDetailBloc;
       },
-      act: (bloc) => bloc.add(FetchMovieDetail(tId)),
+      act: (bloc) => bloc.add(const FetchMovieDetail(tId)),
       expect: () => [
         movieDetailStateInit.copyWith(movieDetailState: RequestState.Loading),
         movieDetailStateInit.copyWith(
@@ -170,12 +170,12 @@ void main() {
       'Shoud emit WatchlistMessage and isAddedToWatchlist True when Success AddWatchlist',
       build: () {
         when(mockSaveWatchlist.execute(tMovieDetail))
-            .thenAnswer((_) async => Right('Added to Watchlist'));
+            .thenAnswer((_) async => const Right('Added to Watchlist'));
         when(mockGetWatchlistStatus.execute(tMovieDetail.id))
             .thenAnswer((_) async => true);
         return movieDetailBloc;
       },
-      act: (bloc) => bloc.add(AddToWatchlist(tMovieDetail)),
+      act: (bloc) => bloc.add(const AddToWatchlist(tMovieDetail)),
       expect: () => [
         movieDetailStateInit.copyWith(watchlistMessage: 'Added to Watchlist'),
         movieDetailStateInit.copyWith(
@@ -191,12 +191,12 @@ void main() {
       'Shoud emit watchlistMessage when Failed',
       build: () {
         when(mockSaveWatchlist.execute(tMovieDetail))
-            .thenAnswer((_) async => Left(DatabaseFailure('Failed')));
+            .thenAnswer((_) async => const Left(DatabaseFailure('Failed')));
         when(mockGetWatchlistStatus.execute(tMovieDetail.id))
             .thenAnswer((_) async => false);
         return movieDetailBloc;
       },
-      act: (bloc) => bloc.add(AddToWatchlist(tMovieDetail)),
+      act: (bloc) => bloc.add(const AddToWatchlist(tMovieDetail)),
       expect: () => [
         movieDetailStateInit.copyWith(watchlistMessage: 'Failed'),
       ],
@@ -212,12 +212,12 @@ void main() {
       'Shoud emit WatchlistMessage and isAddedToWatchlist False when Success RemoveFromWatchlist',
       build: () {
         when(mockRemoveWatchlist.execute(tMovieDetail))
-            .thenAnswer((_) async => Right('Removed From Watchlist'));
+            .thenAnswer((_) async => const Right('Removed From Watchlist'));
         when(mockGetWatchlistStatus.execute(tMovieDetail.id))
             .thenAnswer((_) async => false);
         return movieDetailBloc;
       },
-      act: (bloc) => bloc.add(RemoveFromWatchlist(tMovieDetail)),
+      act: (bloc) => bloc.add(const RemoveFromWatchlist(tMovieDetail)),
       expect: () => [
         movieDetailStateInit.copyWith(
             watchlistMessage: 'Removed From Watchlist',
@@ -233,12 +233,12 @@ void main() {
       'Shoud emit watchlistMessage when Failed',
       build: () {
         when(mockRemoveWatchlist.execute(tMovieDetail))
-            .thenAnswer((_) async => Left(DatabaseFailure('Failed')));
+            .thenAnswer((_) async => const Left(DatabaseFailure('Failed')));
         when(mockGetWatchlistStatus.execute(tMovieDetail.id))
             .thenAnswer((_) async => false);
         return movieDetailBloc;
       },
-      act: (bloc) => bloc.add(RemoveFromWatchlist(tMovieDetail)),
+      act: (bloc) => bloc.add(const RemoveFromWatchlist(tMovieDetail)),
       expect: () => [
         movieDetailStateInit.copyWith(watchlistMessage: 'Failed'),
       ],
@@ -256,7 +256,7 @@ void main() {
         when(mockGetWatchlistStatus.execute(tId)).thenAnswer((_) async => true);
         return movieDetailBloc;
       },
-      act: (bloc) => bloc.add(LoadWatchlistStatus(tId)),
+      act: (bloc) => bloc.add(const LoadWatchlistStatus(tId)),
       expect: () => [
         movieDetailStateInit.copyWith(isAddedToWatchlist: true),
       ],
