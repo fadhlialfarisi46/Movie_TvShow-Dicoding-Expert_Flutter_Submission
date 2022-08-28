@@ -8,5 +8,8 @@ String readJson(String name) {
   if (dir.endsWith('core')) {
     return File('$dir/test/$name').readAsStringSync();
   }
+  if (dir.endsWith('clone')) {
+    return File('$dir/packages/core/test/$name').readAsStringSync();
+  }
   return File('$dir/core/test/$name').readAsStringSync();
 }
