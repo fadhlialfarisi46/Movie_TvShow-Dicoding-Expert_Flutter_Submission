@@ -4,6 +4,8 @@ import 'package:core/data/datasources/movie_remote_data_source.dart';
 import 'package:core/data/repositories/movie_repository_impl.dart';
 import 'package:core/domain/repositories/movie_repository.dart';
 import 'package:core/utils/http_ssl_pinning.dart';
+import 'package:core/utils/network_info.dart';
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movie/movie.dart';
 import 'package:search/search.dart';
@@ -119,10 +121,10 @@ void init() {
 
   // repository
   locator.registerLazySingleton<MovieRepository>(
-    () => MovieRepositoryImpl(
-      remoteDataSource: locator(),
-      localDataSource: locator(),
-    ),
+        () => MovieRepositoryImpl(
+        remoteDataSource: locator(),
+        localDataSource: locator(),
+        networkInfo: locator()),
   );
 
   // data sources
@@ -134,6 +136,10 @@ void init() {
   // helper
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
+  //network info
+  locator.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(locator()));
+
   // external
   locator.registerLazySingleton(() => HttpSSLPinning.client);
+  locator.registerLazySingleton(() => DataConnectionChecker());
 }

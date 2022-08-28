@@ -11,7 +11,7 @@ packages:
   about:
     dependency: "direct main"
     description:
-      path: about
+      path: "packages/about"
       relative: true
     source: path
     version: "0.0.1"
@@ -186,7 +186,7 @@ packages:
   core:
     dependency: "direct main"
     description:
-      path: core
+      path: "packages/core"
       relative: true
     source: path
     version: "0.0.1"
@@ -225,6 +225,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.10.1"
+  data_connection_checker:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: master
+      resolved-ref: "7c1f1e6dfab9a22cdd47285f7d43ec86d693ab33"
+      url: "https://github.com/chornthorn/data_connection_checker.git"
+    source: git
+    version: "0.3.4"
   diff_match_patch:
     dependency: transitive
     description:
@@ -488,7 +497,7 @@ packages:
   movie:
     dependency: transitive
     description:
-      path: movie
+      path: "packages/movie"
       relative: true
     source: path
     version: "0.0.1"
@@ -642,7 +651,7 @@ packages:
   search:
     dependency: "direct main"
     description:
-      path: search
+      path: "packages/search"
       relative: true
     source: path
     version: "0.0.1"
@@ -794,7 +803,7 @@ packages:
   tvshow:
     dependency: "direct main"
     description:
-      path: tvshow
+      path: "packages/tvshow"
       relative: true
     source: path
     version: "0.0.1"
