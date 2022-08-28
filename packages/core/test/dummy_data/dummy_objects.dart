@@ -28,6 +28,15 @@ final testMovieFromCache = Movie.watchlist(
   title: 'Spider-Man',
 );
 
+final tTvShowFromCache = TvShow.watchlist(
+  id: 557,
+  overview:
+      'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
+  posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
+  name: 'Spider-Man',
+  voteAverage: 7.2,
+);
+
 final testTvshow = TvShow(
   backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
   genreIds: const [14, 28],
@@ -46,6 +55,33 @@ final testTvshow = TvShow(
 );
 
 final testTvshowList = [testTvshow];
+
+final tTvShowModel = TvShowModel(
+  backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
+  firstAirDate: DateTime.parse('2022-14-08'),
+  genreIds: const [14, 28],
+  id: 557,
+  name: 'Spider-Man',
+  originCountry: const ['en'],
+  originalLanguage: 'en',
+  originalName: 'Spider-Man',
+  overview:
+      'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
+  popularity: 60.441,
+  posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
+  voteAverage: 7.2,
+  voteCount: 13507,
+);
+final tTvShowModelList = <TvShowModel>[tTvShowModel];
+
+const tTvShowCache = TvShowTable(
+  id: 557,
+  overview:
+      'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
+  posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
+  name: 'Spider-Man',
+  voteAverage: 7.2,
+);
 
 const testMovieDetail = MovieDetail(
   adult: false,
