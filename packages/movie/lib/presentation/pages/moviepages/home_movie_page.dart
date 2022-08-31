@@ -180,8 +180,8 @@ class NavigationDrawer extends StatelessWidget {
             currentAccountPicture: CircleAvatar(
               backgroundImage: AssetImage('assets/circle-g.png'),
             ),
-            accountName: Text('Ditonton'),
-            accountEmail: Text('ditonton@dicoding.com'),
+            accountName: Text('Muhammad Fadhli Al Farisi'),
+            accountEmail: Text('fadhlialfarisi46@gmail.com'),
           ),
           ListTile(
             leading: const Icon(Icons.movie),
